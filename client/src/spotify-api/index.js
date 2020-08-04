@@ -117,3 +117,19 @@ const headers = {
  */
 export const getUser = () =>
   axios.get('https://api.spotify.com/v1/me', { headers });
+
+export const checkUsersSavedTracks = () =>
+  axios.get(`https://api.spotify.com/v1/me/tracks/contains`, { headers });
+
+export const getUsersSavedTracks = () =>
+  axios.get(`https://api.spotify.com/v1/me/tracks`, { headers });
+
+export const getRecommended = (params) =>
+  axios.get(`https://api.spotify.com/v1/recommendations`, {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+    params,
+  });
+
+export const getUserTopArtistsAndTracks = (type) =>
+  axios.get(`https://api.spotify.com/v1/me/top/${type}`, { headers });

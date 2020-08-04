@@ -7,28 +7,27 @@ const login_uri =
     : 'https://agile-shore-54953.herokuapp.com/login';
 
 const Login = styled.div`
-  background-color: rgb(24, 24, 24);
-  color: white;
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
+
 const LoginButton = styled.a`
   display: inline-block;
-  background-color: #1db954;
-  color: #ffffff;
+  background-color: ${(props) => props.theme.tiffanyBlue};
+  color: ${(props) => props.theme.babyPowder};
   border-radius: 30px;
   padding: 17px 35px;
   margin: 20px 0 70px;
   min-width: 160px;
   font-weight: 700;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-decoration: none;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover,
   &:focus {
     background-color: #1ed760;
@@ -37,8 +36,8 @@ const LoginButton = styled.a`
 
 const LoginScreen = () => (
   <Login>
-    <h1>Spotify Profile</h1>
-    <LoginButton href={login_uri}>Log in to Spotify</LoginButton>
+    <h1>Seek. Tune In. Listen</h1>
+    <LoginButton href={login_uri}>Log in With Spotify</LoginButton>
   </Login>
 );
 

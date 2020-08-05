@@ -133,3 +133,6 @@ export const getRecommended = (params) =>
 
 export const getUserTopArtistsAndTracks = (type) =>
   axios.get(`https://api.spotify.com/v1/me/top/${type}`, { headers });
+
+export const getATrack = (trackId) =>
+  axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, { headers });

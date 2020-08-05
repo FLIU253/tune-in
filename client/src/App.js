@@ -14,9 +14,6 @@ const theme = {
 const StyledPage = styled.div`
   background-color: ${(props) => props.theme.richBlack};
   color: ${(props) => props.theme.babyPowder};
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
 `;
 
 function App() {

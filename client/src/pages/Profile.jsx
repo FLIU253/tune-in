@@ -1,7 +1,8 @@
 import React from 'react';
+import Card from '../components/Card';
 
 const Profile = () => {
-  return <div>XDD</div>;
+  return <Card />;
 };
 
 export default Profile;

@@ -7,6 +7,9 @@ const login_uri =
     : 'https://agile-shore-54953.herokuapp.com/login';
 
 const Login = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,61 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getATrack, getUserTopArtistsAndTracks } from '../spotify-api';
 import AudioPlayer from './AudioPlayer';
+import 'react-h5-audio-player/lib/styles.css';
 
 const CardSection = styled.div`
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 450px;
+  height: 600px;
+  background-color: ${(props) => props.theme.tiffanyBlue};
   flex-direction: column;
+  align-items: center;
+  justify-content: start;
 
   img {
-    transform: scale(1.3);
-    opacity: 0.7;
+    width: 100%;
+    height: auto;
+  }
+
+  hr {
+    width: 100%;
+    border: 2px solid ${(props) => props.theme.orangePeel};
   }
 `;
 
-const CardTextSection = styled.div`
-  color: ${(props) => props.theme.orangePeel};
-  text-align: center;
-  margin-top: 50px;
+const TMP_IMG_URL =
+  'https://i.scdn.co/image/ab67616d0000b273b2525c8d0d196069018814b5';
 
-  h1 {
-    padding: 0;
-    margin: 0;
-  }
-`;
+const PREVIEW_SONG =
+  'https://p.scdn.co/mp3-preview/97849001970e88a373f0d7d42b7c35bc0861f91f?cid=e661fb66d5474afe812fb134dc153e31';
 
 const Card = () => {
-  const [trackInfo, setTrackInfo] = useState();
-  const [tracks, setTracks] = useState();
-
-  useEffect(() => {
-    async function fetchTrack() {
-      const { data } = await getATrack('6Sy9BUbgFse0n0LPA5lwy5');
-      const topTracks = await getUserTopArtistsAndTracks('tracks');
-      setTrackInfo(data);
-      setTracks(topTracks.data);
-    }
-    fetchTrack();
-  }, []);
-
   return (
     <CardSection>
-      {console.log(tracks)}
-      {trackInfo && (
-        <div>
-          <img src={trackInfo.album.images[1].url} alt="album cover" />
-          <AudioPlayer url={trackInfo.preview_url} />
-          <CardTextSection>
-            <h1>{trackInfo.name}</h1>
-            {trackInfo.artists.map((artist, i) => (
-              <span key={i}>{artist.name}</span>
-            ))}
-          </CardTextSection>
-        </div>
-      )}
+      <img src={TMP_IMG_URL} alt="album cover" />
+      <h1>Deez Nuts</h1>
+      <h3>Martin Garrix, Your Mom, My Dad</h3>
+      <hr />
+      <AudioPlayer url={PREVIEW_SONG} />
     </CardSection>
   );
 };

@@ -14,6 +14,7 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var history = require('connect-history-api-fallback');
 
 const client_id = process.env.client_id;
 const client_secret = process.env.client_secret;
@@ -49,7 +50,17 @@ var app = express();
 app
   .use(express.static(__dirname + '/public'))
   .use(cors())
-  .use(cookieParser());
+  .use(cookieParser())
+  .use(
+    history({
+      verbose: true,
+      rewrites: [
+        { from: /\/login/, to: '/login' },
+        { from: /\/callback/, to: '/callback' },
+        { from: /\/refresh_token/, to: '/refresh_token' },
+      ],
+    })
+  );
 
 app.get('/login', function (req, res) {
   var state = generateRandomString(16);

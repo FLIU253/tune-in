@@ -1,18 +1,16 @@
 import axios from 'axios';
 
-function getHashParams() {
-  let hashParams = {};
-  var e,
-    r = /([^&;=]+)=?([^&;]*)/g,
-    q = window.location.hash.substring(1);
-  e = r.exec(q);
-  while (e) {
+// Get the query params off the window's URL
+const getHashParams = () => {
+  const hashParams = {};
+  let e;
+  const r = /([^&;=]+)=?([^&;]*)/g;
+  const q = window.location.hash.substring(1);
+  while ((e = r.exec(q))) {
     hashParams[e[1]] = decodeURIComponent(e[2]);
-    e = r.exec(q);
   }
   return hashParams;
-}
-
+};
 // TOKENS ******************************************************************************************
 const EXPIRATION_TIME = 3600 * 1000; // 3600 seconds * 1000 = 1 hour in milliseconds
 
@@ -52,24 +50,12 @@ export const getAccessToken = () => {
 
   if (error) {
     console.error(error);
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('followedArtists');
-    window.localStorage.removeItem('playlists');
-    window.localStorage.removeItem('topArtists');
-    window.localStorage.removeItem('topTracks');
-    window.localStorage.removeItem('randomPlaylist');
     refreshAccessToken();
   }
 
   // If token has expired
   if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
     console.warn('Access token has expired, refreshing...');
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('followedArtists');
-    window.localStorage.removeItem('playlists');
-    window.localStorage.removeItem('topArtists');
-    window.localStorage.removeItem('topTracks');
-    window.localStorage.removeItem('randomPlaylist');
     refreshAccessToken();
   }
 
@@ -96,12 +82,6 @@ export const logout = () => {
   window.localStorage.removeItem('spotify_token_timestamp');
   window.localStorage.removeItem('spotify_access_token');
   window.localStorage.removeItem('spotify_refresh_token');
-  window.localStorage.removeItem('user');
-  window.localStorage.removeItem('followedArtists');
-  window.localStorage.removeItem('playlists');
-  window.localStorage.removeItem('topArtists');
-  window.localStorage.removeItem('topTracks');
-  window.localStorage.removeItem('randomPlaylist');
   window.location.reload();
 };
 
@@ -125,10 +105,8 @@ export const getUsersSavedTracks = () =>
   axios.get(`https://api.spotify.com/v1/me/tracks`, { headers });
 
 export const getRecommended = (params) =>
-  axios.get(`https://api.spotify.com/v1/recommendations`, {
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
-    params,
+  axios.get(`https://api.spotify.com/v1/recommendations${params}`, {
+    headers,
   });
 
 export const getUserTopArtistsAndTracks = (type) =>

@@ -2,10 +2,11 @@ import React from 'react';
 import { token } from '../spotify-api';
 
 import Login from './Login';
-import Profile from './Profile';
+import Main from './Main';
 
 const Landing = () => {
-  return <div>{token ? <Profile /> : <Login />}</div>;
+  return <div>{token ? <Main /> : <Login />}</div>;
+  // return <Main />;
 };
 
 export default Landing;

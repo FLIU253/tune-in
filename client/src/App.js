@@ -23,7 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 1.5rem;
-    line-height: 2;
+    line-height: 1.5;
     background-color:  ${(props) => props.theme.richBlack};
     color:  ${(props) => props.theme.babyPowder};
   }
@@ -32,7 +32,6 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
   div{
-    position: absolute;
     width: 100vw;
     height: 100vh;
     display: flex;

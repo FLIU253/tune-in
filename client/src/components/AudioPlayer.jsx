@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 
 const PlayButton = styled.div`
+  position: absolute;
   z-index: 100;
   font-size: 5em;
   cursor: pointer;
@@ -11,6 +12,7 @@ const PlayButton = styled.div`
 `;
 
 const Slider = styled.input`
+  margin-top: 15px;
   -webkit-appearance: none;
   width: 50%;
   height: 5px;
@@ -40,16 +42,21 @@ const Slider = styled.input`
   }
 `;
 
-const useAudio = (url) => {
-  const [audio] = useState(new Audio(url));
+const useAudio = (url, volume) => {
+  const [audio, setAudio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 
   const toggle = () => setPlaying(!playing);
 
   useEffect(() => {
+    setPlaying(false);
+    setAudio(new Audio(url));
+  }, [url]);
+
+  useEffect(() => {
     playing ? audio.play() : audio.pause();
-    audio.volume = 0.5;
-  }, [playing, audio]);
+    audio.volume = volume / 100;
+  }, [playing, audio, volume]);
 
   useEffect(() => {
     audio.addEventListener('ended', () => setPlaying(false));
@@ -62,8 +69,10 @@ const useAudio = (url) => {
 };
 
 const AudioPlayer = ({ url }) => {
-  const [playing, toggle, audio] = useAudio(url);
   const [volume, setVolume] = useState(50);
+  const [playing, toggle, audio] = useAudio(url, volume);
+
+  console.log(audio);
 
   const handleChange = (e) => {
     setVolume(e.target.value);

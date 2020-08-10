@@ -105,8 +105,9 @@ export const getUsersSavedTracks = () =>
   axios.get(`https://api.spotify.com/v1/me/tracks`, { headers });
 
 export const getRecommended = (params) =>
-  axios.get(`https://api.spotify.com/v1/recommendations${params}`, {
+  axios.get(`https://api.spotify.com/v1/recommendations`, {
     headers,
+    params,
   });
 
 export const getUserTopArtistsAndTracks = (type) =>
@@ -114,3 +115,9 @@ export const getUserTopArtistsAndTracks = (type) =>
 
 export const getATrack = (trackId) =>
   axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, { headers });
+
+export const getAvailableGenres = () =>
+  axios.get(
+    `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
+    { headers }
+  );

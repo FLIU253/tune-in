@@ -18,7 +18,7 @@ const AudioPlayerProvider = (props) => {
     async function fetchTracks() {
       const {
         data: { tracks },
-      } = await getRecommended('?seed_genres=electro');
+      } = await getRecommended({ seed_genres: 'electro' });
       setAudioState((audioState) => ({
         ...audioState,
         tracks,

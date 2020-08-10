@@ -34,7 +34,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   div{
     width: 100vw;
-    height: 100vh;
+    height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;

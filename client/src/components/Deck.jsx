@@ -31,7 +31,7 @@ const Deck = () => {
     <Fragment>
       <Icon
         className="fas fa-times-circle"
-        style={{ color: 'red' }}
+        style={{ color: 'red', cursor: 'pointer' }}
         onClick={playPreviousTrack}
       ></Icon>
       {trackList[index] && (
@@ -43,7 +43,7 @@ const Deck = () => {
       )}
       <Icon
         className="fas fa-heart"
-        style={{ color: 'green' }}
+        style={{ color: 'green', cursor: 'pointer' }}
         onClick={() => playNextTrack()}
       ></Icon>
     </Fragment>

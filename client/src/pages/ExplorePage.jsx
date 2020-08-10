@@ -1,7 +1,7 @@
 import React from 'react';
 import Deck from '../components/Deck';
 
-const Main = () => {
+const ExplorePage = () => {
   return (
     <div>
       <Deck />
@@ -9,4 +9,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ExplorePage;

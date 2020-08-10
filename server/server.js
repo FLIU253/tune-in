@@ -16,10 +16,10 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 var history = require('connect-history-api-fallback');
 
-const client_id = process.env.client_id;
-const client_secret = process.env.client_secret;
-let redirect_uri = process.env.redirect_uri;
-let frontend_uri = process.env.frontend_uri;
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+let redirect_uri = process.env.REDIRECT_URI;
+let frontend_uri = process.env.FRONTEND_URI;
 const PORT = process.env.PORT || 8000;
 
 if (process.env.NODE_ENV !== 'production') {
@@ -112,38 +112,20 @@ app.get('/callback', function (req, res) {
       },
       json: true,
     };
-
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        var access_token = body.access_token,
-          refresh_token = body.refresh_token;
-
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { Authorization: 'Bearer ' + access_token },
-          json: true,
-        };
-
-        // use the access token to access the Spotify Web API
-        request.get(options, function (error, response, body) {
-          console.log(body);
-        });
+        const access_token = body.access_token;
+        const refresh_token = body.refresh_token;
 
         // we can also pass the token to the browser to make requests from there
         res.redirect(
-          `${frontend_uri}/#` +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token,
-            })
+          `${frontend_uri}/#${querystring.stringify({
+            access_token,
+            refresh_token,
+          })}`
         );
       } else {
-        res.redirect(
-          '/#' +
-            querystring.stringify({
-              error: 'invalid_token',
-            })
-        );
+        res.redirect(`/#${querystring.stringify({ error: 'invalid_token' })}`);
       }
     });
   }

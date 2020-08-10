@@ -1,7 +1,7 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { getRecommended } from '../spotify-api';
+import React, { useEffect, Fragment } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
+import useAudioPlayer from '../hooks/useAudioPlayer';
 
 const Icon = styled.i`
   font-size: 3em;
@@ -10,44 +10,41 @@ const Icon = styled.i`
 `;
 
 const Deck = () => {
-  const [trackList, setTrackList] = useState();
-  const [track, setTrack] = useState();
+  const {
+    trackList,
+    playTrack,
+    isLoaded,
+    index,
+    playNextTrack,
+    playPreviousTrack,
+  } = useAudioPlayer();
 
   useEffect(() => {
-    async function fetchTracks() {
-      const {
-        data: { tracks },
-      } = await getRecommended('?seed_genres=electro');
-
-      setTrackList(tracks);
-      setTrack(tracks[0]);
+    if (isLoaded === true) {
+      playTrack(0);
     }
-    fetchTracks();
-  }, []);
+  }, [isLoaded]);
 
-  const nextSong = () => {
-    trackList.splice(0, 1);
-    setTrackList(trackList);
-    setTrack(trackList[0]);
-  };
-
-  console.log(track);
+  console.log(trackList[index]);
 
   return (
     <Fragment>
-      <Icon className="fas fa-times-circle" style={{ color: 'red' }}></Icon>
-      {track && (
+      <Icon
+        className="fas fa-times-circle"
+        style={{ color: 'red' }}
+        onClick={playPreviousTrack}
+      ></Icon>
+      {trackList[index] && (
         <Card
-          albumImg={track.album.images[0].url}
-          previewUrl={track.preview_url}
-          song={track.name}
-          artists={track.artists}
+          albumImg={trackList[index].album.images[0].url}
+          song={trackList[index].name}
+          artists={trackList[index].artists}
         />
       )}
       <Icon
         className="fas fa-heart"
         style={{ color: 'green' }}
-        onClick={() => nextSong()}
+        onClick={() => playNextTrack()}
       ></Icon>
     </Fragment>
   );

@@ -24,7 +24,7 @@ const CardSection = styled.div`
   }
 `;
 
-const Card = ({ albumImg, previewUrl, song, artists }) => {
+const Card = ({ albumImg, song, artists }) => {
   return (
     <CardSection>
       <img src={albumImg} alt="album cover" />
@@ -38,7 +38,7 @@ const Card = ({ albumImg, previewUrl, song, artists }) => {
         ))}
       </h3>
       <hr />
-      <AudioPlayer url={previewUrl} />
+      <AudioPlayer />
     </CardSection>
   );
 };

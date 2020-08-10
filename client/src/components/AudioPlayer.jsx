@@ -1,5 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
+import useAudioPlayer from '../hooks/useAudioPlayer';
 
 const PlayButton = styled.div`
   position: absolute;
@@ -42,52 +43,26 @@ const Slider = styled.input`
   }
 `;
 
-const useAudio = (url, volume) => {
-  const [audio, setAudio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
-
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-    setPlaying(false);
-    setAudio(new Audio(url));
-  }, [url]);
-
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
-    audio.volume = volume / 100;
-  }, [playing, audio, volume]);
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, [audio]);
-
-  return [playing, toggle, audio];
-};
-
-const AudioPlayer = ({ url }) => {
+const AudioPlayer = () => {
   const [volume, setVolume] = useState(50);
-  const [playing, toggle, audio] = useAudio(url, volume);
-
-  console.log(audio);
+  const { adjustVolume, togglePlay, isPlaying, noFile } = useAudioPlayer();
 
   const handleChange = (e) => {
     setVolume(e.target.value);
-    audio.volume = e.target.value / 100;
+    adjustVolume(e.target.value / 100);
   };
 
   return (
     <Fragment>
-      <PlayButton onClick={toggle}>
-        {playing ? (
-          <i className="fas fa-pause"></i>
-        ) : (
-          <i className="fas fa-play"></i>
-        )}
-      </PlayButton>
+      {!noFile && (
+        <PlayButton onClick={togglePlay}>
+          {isPlaying ? (
+            <i className="fas fa-pause"></i>
+          ) : (
+            <i className="fas fa-play"></i>
+          )}
+        </PlayButton>
+      )}
       <Slider
         type="range"
         min="0"

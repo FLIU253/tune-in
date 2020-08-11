@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 import useAudioPlayer from '../hooks/useAudioPlayer';
@@ -7,6 +7,12 @@ const Icon = styled.i`
   font-size: 3em;
   margin: 0 15px;
   z-index: 200;
+`;
+
+const DeckWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Deck = () => {
@@ -28,7 +34,7 @@ const Deck = () => {
   console.log(trackList[index]);
 
   return (
-    <Fragment>
+    <DeckWrapper>
       <Icon
         className="fas fa-times-circle"
         style={{ color: 'red', cursor: 'pointer' }}
@@ -46,7 +52,7 @@ const Deck = () => {
         style={{ color: 'green', cursor: 'pointer' }}
         onClick={() => playNextTrack()}
       ></Icon>
-    </Fragment>
+    </DeckWrapper>
   );
 };
 

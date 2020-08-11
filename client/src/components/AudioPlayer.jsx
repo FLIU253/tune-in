@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import useAudioPlayer from '../hooks/useAudioPlayer';
 
@@ -8,8 +8,13 @@ const PlayButton = styled.div`
   font-size: 5em;
   cursor: pointer;
   opacity: 0.8;
-  width: 450px;
-  height: 450px;
+  height: 60%;
+`;
+
+const AudioWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Slider = styled.input`
@@ -53,7 +58,7 @@ const AudioPlayer = () => {
   };
 
   return (
-    <Fragment>
+    <AudioWrapper>
       {!noFile && (
         <PlayButton onClick={togglePlay}>
           {isPlaying ? (
@@ -72,7 +77,7 @@ const AudioPlayer = () => {
         id="range"
         onChange={(e) => handleChange(e)}
       ></Slider>
-    </Fragment>
+    </AudioWrapper>
   );
 };
 

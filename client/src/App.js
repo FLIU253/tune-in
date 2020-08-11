@@ -16,9 +16,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 10px;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
+    overflow-x: hidden;
   }
   body {
     padding: 0;
@@ -32,9 +30,9 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-  div{
+  #root{
     width: 100vw;
-    height: 70vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -9,6 +9,7 @@ const CardSection = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  text-align: center;
 
   img {
     width: 100%;
@@ -16,7 +17,7 @@ const CardSection = styled.div`
   }
 
   hr {
-    width: 100%;
+    width: 98.5%;
     border: 2px solid ${(props) => props.theme.orangePeel};
   }
   h1 {

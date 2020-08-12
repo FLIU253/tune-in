@@ -1,18 +1,32 @@
 import React from 'react';
+import useSearch from '../hooks/useSearch';
 
-const checkbox = ({ buttonText, checked, toggleCheckbox }) => {
+const Checkbox = ({ buttonText }) => {
+  const {
+    isGenreChecked,
+    isSongsChecked,
+    isArtistsChecked,
+    toggleCheckBox,
+  } = useSearch();
+
   return (
     <div>
       <input
         type="checkbox"
         name={buttonText}
         label={buttonText}
-        checked={checked}
-        onChange={toggleCheckbox}
+        checked={
+          buttonText === 'genres'
+            ? isGenreChecked
+            : buttonText === 'songs'
+            ? isSongsChecked
+            : isArtistsChecked
+        }
+        onChange={() => toggleCheckBox(buttonText)}
       />
       {buttonText}
     </div>
   );
 };
 
-export default checkbox;
+export default Checkbox;

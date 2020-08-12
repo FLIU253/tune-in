@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Checkbox from './Checkbox';
 import styled from 'styled-components';
 
@@ -14,40 +14,11 @@ const ButtonGroup = styled.div`
 `;
 
 const CheckboxSection = () => {
-  const [checkedItems, setCheckedItems] = useState({
-    genres: true,
-    songs: false,
-    artists: false,
-  });
-
-  const toggleCheckbox = (event) => {
-    setCheckedItems({
-      ...checkedItems,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  useEffect(() => {
-    console.log('checkedItems: ', checkedItems);
-  }, [checkedItems]);
-
   return (
     <ButtonGroup>
-      <Checkbox
-        buttonText="genres"
-        checked={checkedItems.genres}
-        toggleCheckbox={toggleCheckbox}
-      />
-      <Checkbox
-        buttonText="songs"
-        checked={checkedItems.songs}
-        toggleCheckbox={toggleCheckbox}
-      />
-      <Checkbox
-        buttonText="artists"
-        checked={checkedItems.artists}
-        toggleCheckbox={toggleCheckbox}
-      />
+      <Checkbox buttonText="genres" />
+      <Checkbox buttonText="songs" />
+      <Checkbox buttonText="artists" />
     </ButtonGroup>
   );
 };

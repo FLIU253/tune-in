@@ -3,6 +3,7 @@ import './App.css';
 import Landing from './pages/Landing';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { AudioPlayerProvider } from './context/AudioPlayerContext';
+import { SearchProvider } from './context/SearchContext';
 
 const theme = {
   richBlack: '#011627',
@@ -42,10 +43,12 @@ export const GlobalStyles = createGlobalStyle`
 function App() {
   return (
     <AudioPlayerProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Landing />
-      </ThemeProvider>
+      <SearchProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Landing />
+        </ThemeProvider>
+      </SearchProvider>
     </AudioPlayerProvider>
   );
 }

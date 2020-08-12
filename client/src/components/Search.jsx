@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getAvailableGenres } from '../spotify-api';
 import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import './search.css';
+import useSearch from '../hooks/useSearch';
 
 const SearchWrapper = styled.div`
   height: 700px;
@@ -38,21 +38,14 @@ function renderSuggestion(suggestions) {
 }
 
 const Search = () => {
-  const [genres, setGenres] = useState();
-
-  useEffect(() => {
-    async function fetchGenres() {
-      const {
-        data: { genres },
-      } = await getAvailableGenres();
-      setGenres(genres);
-    }
-
-    fetchGenres();
-  }, []);
+  const { genres, clearGenres, isGenreChecked, setGenres } = useSearch();
 
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    !isGenreChecked ? clearGenres() : setGenres();
+  }, [isGenreChecked]);
 
   const handleChange = (e, { newValue, method }) => {
     setValue(newValue);

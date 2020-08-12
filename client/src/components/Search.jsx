@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import './search.css';
 
 const SearchWrapper = styled.div`
-  height: 800px;
+  height: 700px;
   li {
     color: ${(props) => props.theme.richBlack};
   }
@@ -74,7 +74,6 @@ const Search = () => {
 
   return (
     <SearchWrapper>
-      <h1>Search</h1>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}

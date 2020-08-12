@@ -121,3 +121,9 @@ export const getAvailableGenres = () =>
     `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
     { headers }
   );
+
+export const spotifySearch = (params) =>
+  axios.get(`https://api.spotify.com/v1/search`, {
+    headers,
+    params,
+  });

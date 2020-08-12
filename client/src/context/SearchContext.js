@@ -8,7 +8,11 @@ const SearchProvider = (props) => {
     isGenreChecked: true,
     isSongsChecked: false,
     isArtistsChecked: false,
+    searchValue: '',
+    suggestions: [],
     genres: [],
+    songs: [],
+    artists: [],
   });
 
   useEffect(() => {

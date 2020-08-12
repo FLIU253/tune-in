@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import './search.css';
@@ -38,17 +38,22 @@ function renderSuggestion(suggestions) {
 }
 
 const Search = () => {
-  const { genres, clearGenres, isGenreChecked, setGenres } = useSearch();
-
-  const [value, setValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-
-  useEffect(() => {
-    !isGenreChecked ? clearGenres() : setGenres();
-  }, [isGenreChecked]);
+  const {
+    genres,
+    songs,
+    artists,
+    isGenreChecked,
+    isArtistsChecked,
+    isSongsChecked,
+    value,
+    setSearchValue,
+    suggestions,
+    setSuggestions,
+    clearSuggestions,
+  } = useSearch();
 
   const handleChange = (e, { newValue, method }) => {
-    setValue(newValue);
+    setSearchValue(newValue);
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
@@ -56,7 +61,7 @@ const Search = () => {
   };
 
   const onSuggestionsClearRequested = () => {
-    setSuggestions([]);
+    clearSuggestions();
   };
 
   const inputProps = {

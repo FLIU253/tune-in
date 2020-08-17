@@ -36,7 +36,9 @@ const Deck = ({ params }) => {
       setTracks(tracks);
     }
     fetchTracks();
+  }, []);
 
+  useEffect(() => {
     if (isLoaded === true) {
       playTrack(0);
     }

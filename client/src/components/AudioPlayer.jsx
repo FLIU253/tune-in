@@ -8,7 +8,8 @@ const PlayButton = styled.div`
   font-size: 5em;
   cursor: pointer;
   opacity: 0.8;
-  height: 60%;
+  height: 20%;
+  top: 400px;
 `;
 
 const AudioWrapper = styled.div`

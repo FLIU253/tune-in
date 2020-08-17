@@ -9,6 +9,12 @@ const useSearch = () => {
     switch (checkbox) {
       case 'genres':
         searchState.isGenreChecked ? clearGenres() : setGenres();
+        !searchState.isGenreChecked &&
+          setSearchState((searchState) => ({
+            ...searchState,
+            isSongsChecked: false,
+            isArtistsChecked: false,
+          }));
         setSearchState((searchState) => ({
           ...searchState,
           isGenreChecked: !searchState.isGenreChecked,
@@ -16,6 +22,12 @@ const useSearch = () => {
         break;
       case 'songs':
         searchState.isSongsChecked && clearSongs();
+        !searchState.isSongsChecked &&
+          setSearchState((searchState) => ({
+            ...searchState,
+            isGenreChecked: false,
+            isArtistsChecked: false,
+          }));
         setSearchState((searchState) => ({
           ...searchState,
           isSongsChecked: !searchState.isSongsChecked,
@@ -23,6 +35,12 @@ const useSearch = () => {
         break;
       case 'artists':
         searchState.isArtistsChecked && clearArtists();
+        !searchState.isArtistsChecked &&
+          setSearchState((searchState) => ({
+            ...searchState,
+            isGenreChecked: false,
+            isSongsChecked: false,
+          }));
         setSearchState((searchState) => ({
           ...searchState,
           isArtistsChecked: !searchState.isArtistsChecked,
@@ -35,8 +53,10 @@ const useSearch = () => {
   };
 
   const setSearchValue = (newValue) => {
-    searchState.isArtistsChecked && setArtists(newValue, 'artist');
-    searchState.isSongsChecked && setSongs(newValue, 'track');
+    if (newValue.length > 2) {
+      searchState.isArtistsChecked && setArtists(newValue, 'artist');
+      searchState.isSongsChecked && setSongs(newValue, 'track');
+    }
     setSearchState((searchState) => ({
       ...searchState,
       searchValue: newValue,

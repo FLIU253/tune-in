@@ -19,24 +19,6 @@ function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function getSuggestions(genres, value) {
-  if (genres) {
-    const escapedValue = escapeRegexCharacters(value.trim());
-    if (escapedValue === '') return [];
-
-    const regex = new RegExp('^' + escapedValue, 'i');
-    return genres.filter((genre) => regex.test(genre));
-  }
-}
-
-function getSuggestionValue(suggestions) {
-  return suggestions;
-}
-
-function renderSuggestion(suggestions) {
-  return <span>{suggestions}</span>;
-}
-
 const Search = () => {
   const {
     genres,
@@ -57,11 +39,50 @@ const Search = () => {
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestions(getSuggestions(genres, value));
+    isGenreChecked && setSuggestions(getSuggestions(genres, value));
+    isArtistsChecked && setSuggestions(getSuggestions(artists, value));
+    isSongsChecked && setSuggestions(getSuggestions(songs, value));
   };
 
   const onSuggestionsClearRequested = () => {
     clearSuggestions();
+  };
+
+  const getSuggestions = (valueList, value) => {
+    if (valueList) {
+      if (isGenreChecked) {
+        const escapedValue = escapeRegexCharacters(value.trim());
+        if (escapedValue === '') return [];
+
+        const regex = new RegExp('^' + escapedValue, 'i');
+        return genres.filter((genre) => regex.test(genre));
+      }
+      if (isArtistsChecked) {
+        const escapedValue = escapeRegexCharacters(value.trim());
+        if (escapedValue === '') return [];
+
+        const regex = new RegExp('^' + escapedValue, 'i');
+        return artists.filter((artist) => regex.test(artist.name));
+      }
+      if (isSongsChecked) {
+        const escapedValue = escapeRegexCharacters(value.trim());
+        if (escapedValue === '') return [];
+
+        const regex = new RegExp('^' + escapedValue, 'i');
+        return songs.filter((song) => regex.test(song.name));
+      }
+    }
+  };
+
+  const getSuggestionValue = (suggestions) => {
+    if (isGenreChecked) return suggestions;
+    if (isArtistsChecked || isSongsChecked) return suggestions.name;
+  };
+
+  const renderSuggestion = (suggestions) => {
+    if (isGenreChecked) return <span>{suggestions}</span>;
+    if (isArtistsChecked || isSongsChecked)
+      return <span>{suggestions.name}</span>;
   };
 
   const inputProps = {

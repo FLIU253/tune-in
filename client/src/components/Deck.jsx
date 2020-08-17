@@ -3,6 +3,7 @@ import Card from './Card';
 import styled from 'styled-components';
 import useAudioPlayer from '../hooks/useAudioPlayer';
 import { getRecommended } from '../spotify-api';
+import useSearch from '../hooks/useSearch';
 
 const Icon = styled.i`
   font-size: 3em;
@@ -27,16 +28,29 @@ const Deck = ({ params }) => {
     setTracks,
   } = useAudioPlayer();
 
+  const { isArtistsChecked, isGenreChecked, isSongsChecked } = useSearch();
+
   useEffect(() => {
     async function fetchTracks() {
-      const {
-        data: { tracks },
-      } = await getRecommended({ seed_genres: params.id });
-
-      setTracks(tracks);
+      if (isGenreChecked) {
+        const {
+          data: { tracks },
+        } = await getRecommended({ seed_genres: params.id });
+        setTracks(tracks);
+      } else if (isArtistsChecked) {
+        const {
+          data: { tracks },
+        } = await getRecommended({ seed_artists: params.id });
+        setTracks(tracks);
+      } else if (isSongsChecked) {
+        const {
+          data: { tracks },
+        } = await getRecommended({ seed_tracks: params.id });
+        setTracks(tracks);
+      }
     }
     fetchTracks();
-  }, []);
+  }, [isGenreChecked, isArtistsChecked, isSongsChecked, params.id]);
 
   useEffect(() => {
     if (isLoaded === true) {

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import './search.css';
 import useSearch from '../hooks/useSearch';
+import useAudioPlayer from '../hooks/useAudioPlayer';
 import { Link } from 'react-router-dom';
 
 const SearchWrapper = styled.div`
@@ -34,6 +35,12 @@ const Search = () => {
     setSuggestions,
     clearSuggestions,
   } = useSearch();
+
+  const { resetTracksValues } = useAudioPlayer();
+
+  useEffect(() => {
+    resetTracksValues();
+  }, []);
 
   const handleChange = (e, { newValue, method }) => {
     setSearchValue(newValue);

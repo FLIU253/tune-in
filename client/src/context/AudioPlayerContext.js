@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { getRecommended } from '../spotify-api';
+import React, { useState } from 'react';
 // reference found here: https://upmostly.com/tutorials/how-to-use-the-usecontext-hook-in-react
 
 const AudioPlayerContext = React.createContext([{}, () => {}]);

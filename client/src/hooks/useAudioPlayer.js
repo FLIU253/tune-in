@@ -12,6 +12,19 @@ const useAudioPlayer = () => {
     }));
   };
 
+  const resetTracksValues = () => {
+    setAudioState((audioState) => ({
+      ...audioState,
+      tracks: [],
+      currentTrackIndex: null,
+      isPlaying: false,
+      audioPlayer: new Audio(),
+      isLoaded: false,
+      noFile: false,
+      volume: 0.5,
+    }));
+  };
+
   //Play a specific track
   const playTrack = (index) => {
     if (index === audioState.currentTrackIndex) {
@@ -99,6 +112,7 @@ const useAudioPlayer = () => {
     adjustVolume,
     noFile: audioState.noFile,
     setTracks,
+    resetTracksValues,
   };
 };
 

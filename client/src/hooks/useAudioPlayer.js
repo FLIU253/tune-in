@@ -4,6 +4,14 @@ import { AudioPlayerContext } from '../context/AudioPlayerContext';
 const useAudioPlayer = () => {
   const [audioState, setAudioState] = useContext(AudioPlayerContext);
 
+  const setTracks = (tracks) => {
+    setAudioState((audioState) => ({
+      ...audioState,
+      tracks,
+      isLoaded: true,
+    }));
+  };
+
   //Play a specific track
   const playTrack = (index) => {
     if (index === audioState.currentTrackIndex) {
@@ -90,6 +98,7 @@ const useAudioPlayer = () => {
     index: audioState.currentTrackIndex,
     adjustVolume,
     noFile: audioState.noFile,
+    setTracks,
   };
 };
 

@@ -15,20 +15,6 @@ const AudioPlayerProvider = (props) => {
     volume: 0.5,
   });
 
-  useEffect(() => {
-    async function fetchTracks() {
-      const {
-        data: { tracks },
-      } = await getRecommended({ seed_genres: 'electro' });
-      setAudioState((audioState) => ({
-        ...audioState,
-        tracks,
-        isLoaded: true,
-      }));
-    }
-    fetchTracks();
-  }, []);
-
   return (
     <AudioPlayerContext.Provider value={[audioState, setAudioState]}>
       {props.children}

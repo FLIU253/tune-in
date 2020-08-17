@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 import useAudioPlayer from '../hooks/useAudioPlayer';
+import { getRecommended } from '../spotify-api';
 
 const Icon = styled.i`
   font-size: 3em;
@@ -15,7 +16,7 @@ const DeckWrapper = styled.div`
   justify-content: center;
 `;
 
-const Deck = () => {
+const Deck = ({ params }) => {
   const {
     trackList,
     playTrack,
@@ -23,9 +24,19 @@ const Deck = () => {
     index,
     playNextTrack,
     playPreviousTrack,
+    setTracks,
   } = useAudioPlayer();
 
   useEffect(() => {
+    async function fetchTracks() {
+      const {
+        data: { tracks },
+      } = await getRecommended({ seed_genres: params.id });
+
+      setTracks(tracks);
+    }
+    fetchTracks();
+
     if (isLoaded === true) {
       playTrack(0);
     }

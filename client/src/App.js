@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { AudioPlayerProvider } from './context/AudioPlayerContext';
 import { SearchProvider } from './context/SearchContext';
+import { BrowserRouter } from 'react-router-dom';
 
 const theme = {
   richBlack: '#011627',
@@ -45,8 +46,10 @@ function App() {
     <AudioPlayerProvider>
       <SearchProvider>
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Landing />
+          <BrowserRouter>
+            <GlobalStyles />
+            <Landing />
+          </BrowserRouter>
         </ThemeProvider>
       </SearchProvider>
     </AudioPlayerProvider>

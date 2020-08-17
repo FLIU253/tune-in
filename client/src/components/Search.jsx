@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
 import './search.css';
 import useSearch from '../hooks/useSearch';
+import { Link } from 'react-router-dom';
 
 const SearchWrapper = styled.div`
   height: 700px;
@@ -80,9 +81,18 @@ const Search = () => {
   };
 
   const renderSuggestion = (suggestions) => {
-    if (isGenreChecked) return <span>{suggestions}</span>;
+    if (isGenreChecked)
+      return (
+        <Link to={`/${suggestions}`}>
+          <span>{suggestions}</span>
+        </Link>
+      );
     if (isArtistsChecked || isSongsChecked)
-      return <span>{suggestions.name}</span>;
+      return (
+        <Link to={`/${suggestions.id}`}>
+          <span>{suggestions.name}</span>
+        </Link>
+      );
   };
 
   const inputProps = {

@@ -1,10 +1,10 @@
 import React from 'react';
 import Deck from '../components/Deck';
 
-const ExplorePage = () => {
+const ExplorePage = ({ match: { params } }) => {
   return (
     <div>
-      <Deck />
+      <Deck params={params} />
     </div>
   );
 };
